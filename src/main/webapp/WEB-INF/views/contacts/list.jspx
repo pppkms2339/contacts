@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     xmlns:spring="http://www.springframework.org/tags"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="label_contact_list" var="labelContactList"/>
+    <spring:message code="label_contact_first_name" var="labelContactFirstName"/>
+    <spring:message code="label_contact_last_name" var="labelContactLastName"/>
+    <spring:message code="label_contact_birth_date" var="labelContactBirthDate"/>
+    <spring:message code="label_contact_prev_page" var="labelContactPrevPage"/>
+    <spring:message code="label_contact_next_page" var="labelContactNextPage"/>
+
+    <c:set value="${pageContext.request.contextPath}" var="contextPath"/>
+
+    <h1>${labelContactList}</h1>
+
+    <c:if test="${not empty contacts}">
+        <table>
+            <thead>
+                <tr>
+                    <th>${labelContactFirstName}</th>
+                    <th>${labelContactLastName}</th>
+                    <th>${labelContactBirthDate}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:forEach items="${contacts}" var="contact">
+                    <tr>
+                        <td><a href="${contextPath}/contacts/id/${contact.id}">${contact.firstName}</a></td>
+                        <td>${contact.lastName}</td>
+                        <td>${contact.birthDate}</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
+        <div id="pagination">
+            <a href="${contextPath}/contacts/page/${page - 1}">${labelContactPrevPage}</a>
+            <a href="${contextPath}/contacts/page/${page + 1}">${labelContactNextPage}</a>
+        </div>
+    </c:if>
+</div>

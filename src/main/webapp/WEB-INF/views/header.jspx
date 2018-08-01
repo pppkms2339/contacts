@@ -1,0 +1,33 @@
+<div id="header" xmlns:jsp="http://java.sun.com/JSP/Page"
+     xmlns:spring="http://www.springframework.org/tags"
+     xmlns:sec="http://www.springframework.org/security/tags"
+     xmlns:c="http://java.sun.com/jsp/jstl/core"
+     version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+    <spring:message code="header_text" var="headerText"/>
+    <spring:message code="label_welcome" var="labelWelcome"/>
+    <spring:message code="label_logout" var="labelLogout"/>
+    <spring:message code="label_login" var="labelLogin"/>
+
+    <c:set value="${pageContext.request.contextPath}" var="contextPath"/>
+
+    <div id="appname">
+        <h1>${headerText}</h1>
+    </div>
+
+    <div id="userinfo">
+        <sec:authorize access="isAuthenticated()">${labelWelcome}
+            <sec:authentication property="principal.username"/>
+            <br/>
+            <a href="${contextPath}/security/logout">${labelLogout}</a>
+        </sec:authorize>
+        <sec:authorize access="isAnonymous()">
+            <a href="${contextPath}/security/login">${labelLogin}</a>
+        </sec:authorize>
+    </div>
+
+
+
+</div>
